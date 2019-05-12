@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <title>NJ Point-In-Time Count</title>
+  <head>
+    <meta charset="utf-8">
+<!-- CSS Imports -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.4.0/leaflet.css" integrity="sha256-YR4HrDE479EpYZgeTkQfgVJq08+277UXxMLbi/YP69o=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css" integrity="sha256-aa0xaJgmK/X74WM224KMQeNQC2xYKwlAt08oZqjeF0E=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+
+<!-- Navbar -->
+    <nav class="titleBorder"><a><span></span></a></nav>
+    <nav class="title"><a><span>New Jersey<br>Point-In-Time<br>Count</span></a></nav>
+    <nav class="navbar-primary">
+      <div class="dropdown"style="height:100%; position:absolute; top: 5px; right:300px; left:5px; z-index: 1000;">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="background-color: #084594; border-color: #084594">
+            2018 Total Homelessness
+          <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
+            <li><a class="dropdown-item" data-value="0" href="#">2018 Total Homelessness</a></li>
+            <li><a class="dropdown-item" data-value="1" href="#">2018 Chronic Homelessness</a></li>
+            <li><a class="dropdown-item" data-value="2" href="#">2018 Unsheltered Homelessness</a></li>
+            <li><a class="dropdown-item" data-value="3" href="#">2017 Total Homelessness</a></li>
+            <li><a class="dropdown-item" data-value="4" href="#">2017 Chronic Homelessness</a></li>
+            <li><a class="dropdown-item" data-value="5" href="#">2017 Unsheltered Homelessness</a></li>
+            <li><a class="dropdown-item" data-value="6" href="#">2016 Total Homelessness</a></li>
+            <li><a class="dropdown-item" data-value="7" href="#">2016 Chronic Homelessness</a></li>
+            <li><a class="dropdown-item" data-value="8" href="#">2016 Unsheltered Homelessness</a></li>
+          </ul>
+        </div>
+        <ul class="navbar-primary-menu"style="height:100%; position:absolute; top: 50px">
+          <li>
+            <a href="home.html"><span class="fas fa-home"></span><span class="nav-label">   Home</span></a>
+            <a href="map.html" style="background-color: navy"><span class="fas fa-globe-americas" style="background-color: navy"></span><span class="nav-label"style="background-color: navy">   Map</span><span style="color: navy">_______________________</span><span style="color: white">></span></a>
+            <a href="change.html"><span class="fas fa-chart-area"></span><span class="nav-label">   Change</span></a>
+            <a href="distribution.html"><span class="fas fa-chart-pie"></span><span class="nav-label">   Distribution</span></a>
+            <a href="table.html"><span class="fas fa-table"></span><span class="nav-label">   Table</span></a>
+          </li>
+        </ul>
+    </nav>
+
+<!-- Map -->
+    <div id="map" style="height:100%; position:absolute; right:0px; left:200px"></div>
+
+<!-- Javascript Imports -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.4.0/leaflet.js" integrity="sha256-6BZRSENq3kxI4YYBDqJ23xg0r1GwTHEpvp3okdaIqBw=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore.js" integrity="sha256-O4179En8zabOlPYBNvGp8cF0uh0vnSZpW4Q6Ul1h+8c=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js" integrity="sha256-xKeoJ50pzbUGkpQxDYHD7o7hxe0LaOGeguUidbq6vis=" crossorigin="anonymous"></script>
+    <script src="js/stateData.js"></script>
+    <script src="js/array.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>

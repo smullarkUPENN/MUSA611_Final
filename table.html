@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+  <title>NJ Point-In-Time Count</title>
+  <head>
+    <meta charset="utf-8">
+<!-- CSS Imports -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.4.0/leaflet.css" integrity="sha256-YR4HrDE479EpYZgeTkQfgVJq08+277UXxMLbi/YP69o=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css" integrity="sha256-aa0xaJgmK/X74WM224KMQeNQC2xYKwlAt08oZqjeF0E=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+
+<!-- Navbar -->
+    <nav class="titleBorder"><a><span></span></a></nav>
+    <nav class="title"><a><span>New Jersey<br>Point-In-Time<br>Count</span></a></nav>
+    <nav class="navbar-primary">
+        <ul class="navbar-primary-menu"style="height:100%; position:absolute; top: 50px">
+          <li>
+            <a href="home.html"><span class="fas fa-home"></span><span class="nav-label">   Home</span></a>
+            <a href="map.html"><span class="fas fa-globe-americas"></span><span class="nav-label">   Map</span></a>
+            <a href="change.html"><span class="fas fa-chart-area"></span><span class="nav-label">   Change</span></a>
+            <a href="distribution.html"><span class="fas fa-chart-pie"></span><span class="nav-label">   Distribution</span></a>
+            <a href="table.html" style="background-color: navy"><span class="fas fa-table" style="background-color: navy"></span><span class="nav-label"style="background-color: navy">   Table</span><span style="color: navy">______________________</span><span style="color: white">></span></a>
+          </li>
+        </ul>
+    </nav>
+
+<!-- Table -->
+<table class="table table-hover" style="position:absolute; right:0px; left:320px">
+  <thead>
+    <tr>
+      <th scope="col">County</th>
+      <th scope="col">PIT_2018_THP</th>
+      <th scope="col">PIT_2017_THP</th>
+      <th scope="col">PIT_2016_THP</th>
+      <th scope="col">PIT_2018_CH</th>
+      <th scope="col">PIT_2017_CH</th>
+      <th scope="col">PIT_2016_CH</th>
+      <th scope="col">PIT_2018_USH</th>
+      <th scope="col">PIT_2017_USH</th>
+      <th scope="col">PIT_2016_USH</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">Statewide</th>
+      <td>9303</td>
+      <td>8532</td>
+      <td>8941</td>
+      <td>1288</td>
+      <td>1093</td>
+      <td>836</td>
+      <td>1623</td>
+      <td>1415</td>
+      <td>1442</td>
+    </tr>
+    <tr>
+      <th scope="row">Atlantic</th>
+      <td>437</td>
+      <td>422</td>
+      <td>476</td>
+      <td>105</td>
+      <td>105</td>
+      <td>53</td>
+      <td>131</td>
+      <td>109</td>
+      <td>116</td>
+    </tr>
+    <tr>
+      <th scope="row">Bergen</th>
+      <td>354</td>
+      <td>302</td>
+      <td>296</td>
+      <td>11</td>
+      <td>3</td>
+      <td>10</td>
+      <td>23</td>
+      <td>5</td>
+      <td>11</td>
+    </tr>
+    <tr>
+      <th scope="row">Burlington</th>
+      <td>840</td>
+      <td>604</td>
+      <td>928</td>
+      <td>81</td>
+      <td>113</td>
+      <td>140</td>
+      <td>56</td>
+      <td>44</td>
+      <td>15</td>
+    </tr>
+    <tr>
+      <th scope="row">Camden</th>
+      <td>577</td>
+      <td>540</td>
+      <td>683</td>
+      <td>100</td>
+      <td>56</td>
+      <td>39</td>
+      <td>84</td>
+      <td>78</td>
+      <td>150</td>
+    </tr>
+    <tr>
+      <th scope="row">Cape May</th>
+      <td>103</td>
+      <td>119</td>
+      <td>133</td>
+      <td>13</td>
+      <td>13</td>
+      <td>8</td>
+      <td>8</td>
+      <td>6</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <th scope="row">Cumberland</th>
+      <td>156</td>
+      <td>151</td>
+      <td>140</td>
+      <td>25</td>
+      <td>15</td>
+      <td>19</td>
+      <td>35</td>
+      <td>39</td>
+      <td>73</td>
+    </tr>
+    <tr>
+      <th scope="row">Essex</th>
+      <td>2229</td>
+      <td>2048</td>
+      <td>1782</td>
+      <td>250</td>
+      <td>182</td>
+      <td>99</td>
+      <td>396</td>
+      <td>428</td>
+      <td>443</td>
+    </tr>
+    <tr>
+      <th scope="row">Gloucester</th>
+      <td>144</td>
+      <td>128</td>
+      <td>112</td>
+      <td>8</td>
+      <td>3</td>
+      <td>9</td>
+      <td>18</td>
+      <td>4</td>
+      <td>7</td>
+    </tr>
+    <tr>
+      <th scope="row">Hudson</th>
+      <td>860</td>
+      <td>822</td>
+      <td>829</td>
+      <td>226</td>
+      <td>176</td>
+      <td>139</td>
+      <td>243</td>
+      <td>184</td>
+      <td>226</td>
+    </tr>
+    <tr>
+      <th scope="row">Hunterdon</th>
+      <td>169</td>
+      <td>133</td>
+      <td>130</td>
+      <td>12</td>
+      <td>17</td>
+      <td>12</td>
+      <td>21</td>
+      <td>17</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th scope="row">Mercer</th>
+      <td>479</td>
+      <td>478</td>
+      <td>465</td>
+      <td>46</td>
+      <td>71</td>
+      <td>20</td>
+      <td>63</td>
+      <td>84</td>
+      <td>44</td>
+    </tr>
+    <tr>
+      <th scope="row">Middlesex</th>
+      <td>596</td>
+      <td>546</td>
+      <td>457</td>
+      <td>87</td>
+      <td>71</td>
+      <td>46</td>
+      <td>130</td>
+      <td>125</td>
+      <td>84</td>
+    </tr>
+    <tr>
+      <th scope="row">Monmouth</th>
+      <td>335</td>
+      <td>299</td>
+      <td>344</td>
+      <td>40</td>
+      <td>49</td>
+      <td>74</td>
+      <td>72</td>
+      <td>44</td>
+      <td>45</td>
+    </tr>
+    <tr>
+      <th scope="row">Morris</th>
+      <td>398</td>
+      <td>378</td>
+      <td>410</td>
+      <td>65</td>
+      <td>73</td>
+      <td>34</td>
+      <td>35</td>
+      <td>27</td>
+      <td>34</td>
+    </tr>
+    <tr>
+      <th scope="row">Ocean</th>
+      <td>311</td>
+      <td>224</td>
+      <td>430</td>
+      <td>52</td>
+      <td>24</td>
+      <td>73</td>
+      <td>102</td>
+      <td>43</td>
+      <td>54</td>
+    </tr>
+    <tr>
+      <th scope="row">Passaic</th>
+      <td>434</td>
+      <td>432</td>
+      <td>449</td>
+      <td>95</td>
+      <td>58</td>
+      <td>27</td>
+      <td>112</td>
+      <td>89</td>
+      <td>36</td>
+    </tr>
+    <tr>
+      <th scope="row">Salem</th>
+      <td>47</td>
+      <td>17</td>
+      <td>40</td>
+      <td>5</td>
+      <td>1</td>
+      <td>1</td>
+      <td>5</td>
+      <td>4</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <th scope="row">Somerset</th>
+      <td>206</td>
+      <td>244</td>
+      <td>218</td>
+      <td>6</td>
+      <td>3</td>
+      <td>1</td>
+      <td>7</td>
+      <td>5</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <th scope="row">Sussex</th>
+      <td>113</td>
+      <td>99</td>
+      <td>80</td>
+      <td>7</td>
+      <td>10</td>
+      <td>8</td>
+      <td>28</td>
+      <td>12</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th scope="row">Union</th>
+      <td>459</td>
+      <td>475</td>
+      <td>513</td>
+      <td>43</td>
+      <td>43</td>
+      <td>19</td>
+      <td>41</td>
+      <td>55</td>
+      <td>62</td>
+    </tr>
+    <tr>
+      <th scope="row">Warren</th>
+      <td>56</td>
+      <td>57</td>
+      <td>40</td>
+      <td>11</td>
+      <td>7</td>
+      <td>5</td>
+      <td>13</td>
+      <td>13</td>
+      <td>6</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- Javascript Imports -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.4.0/leaflet.js" integrity="sha256-6BZRSENq3kxI4YYBDqJ23xg0r1GwTHEpvp3okdaIqBw=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore.js" integrity="sha256-O4179En8zabOlPYBNvGp8cF0uh0vnSZpW4Q6Ul1h+8c=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js" integrity="sha256-xKeoJ50pzbUGkpQxDYHD7o7hxe0LaOGeguUidbq6vis=" crossorigin="anonymous"></script>
+    <script src="js/stateData.js"></script>
+    <script src="js/array.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>

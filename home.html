@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <title>NJ Point-In-Time Count</title>
+  <head>
+    <meta charset="utf-8">
+<!-- CSS Imports -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.4.0/leaflet.css" integrity="sha256-YR4HrDE479EpYZgeTkQfgVJq08+277UXxMLbi/YP69o=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css" integrity="sha256-aa0xaJgmK/X74WM224KMQeNQC2xYKwlAt08oZqjeF0E=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+
+<!-- Navbar -->
+    <nav class="titleBorder"><a><span></span></a></nav>
+    <nav class="title"><a><span>New Jersey<br>Point-In-Time<br>Count</span></a></nav>
+    <nav class="navbar-primary">
+
+        <ul class="navbar-primary-menu"style="height:100%; position:absolute; top: 50px">
+          <li>
+            <a href="home.html" style="background-color: navy"><span class="fas fa-home" style="background-color: navy"></span><span class="nav-label"style="background-color: navy">   Home</span><span style="color: navy">_____________________</span><span style="color: white">></span></a>
+            <a href="map.html"><span class="fas fa-globe-americas"></span><span class="nav-label">   Map</span></a>
+            <a href="change.html"><span class="fas fa-chart-area"></span><span class="nav-label">   Change</span></a>
+            <a href="distribution.html"><span class="fas fa-chart-pie"></span><span class="nav-label">   Distribution</span></a>
+            <a href="table.html"><span class="fas fa-table"></span><span class="nav-label">   Table</span></a>
+          </li>
+        </ul>
+    </nav>
+
+
+
+
+<!-- Map & Narrative -->
+
+<homeNarrative style="z-index: 1000; background-color: white; height: 235px; position:absolute; right:150px; left:460px; top: 250px; text-align: justify; border:3px; border-style:solid; border-color:#084594; padding: 1em">
+The New Jersey Point-In Time (PIT) Count is an annual state-wide survey of individuals and families that are experiencing homelessness on a given night in January.  This data helps better understand the issues facing some of New Jersey's most vulnerable residents as well as how best to allocate community resources and services to meet their needs.
+<br></br>
+This site provides a 3-year summary of PIT results viewed at both state-wide and county levels.  Data focuses on Total Homelessness as well as subpopulations Chronic Homelessness and Unsheltered Homelessness.  This data is presented in an interactive map, graph, chart as well as in table form.  Users can select each option in the left navigation bar.  A drop-down menu within the navigation bar allows the user to select the data to be visualized.
+
+</homeNarrative>
+
+<!-- Javascript Imports -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.4.0/leaflet.js" integrity="sha256-6BZRSENq3kxI4YYBDqJ23xg0r1GwTHEpvp3okdaIqBw=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore.js" integrity="sha256-O4179En8zabOlPYBNvGp8cF0uh0vnSZpW4Q6Ul1h+8c=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js" integrity="sha256-xKeoJ50pzbUGkpQxDYHD7o7hxe0LaOGeguUidbq6vis=" crossorigin="anonymous"></script>
+    <script src="js/stateData.js"></script>
+
+
+    <div id="map" style="height:100%; position:absolute; right:0px; left:200px">
+<script>
+var map = L.map('map', { zoomControl:false });
+var Stamen_TonerLite = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
+  attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data: <a href="https://monarchhousing.org/endinghomelessness/njcounts/">Monarch Housing</a>',
+  subdomains: 'abcd',
+}).addTo(map);
+map.dragging.disable();
+map.touchZoom.disable();
+map.doubleClickZoom.disable();
+map.scrollWheelZoom.disable();
+map.boxZoom.disable();
+map.keyboard.disable();
+if (map.tap) map.tap.disable();
+var njMap = L.geoJson(njData).addTo(map);
+map.fitBounds(njMap.getBounds());
+</script>
+    </div>
+
+
+
+  </body>
+</html>
